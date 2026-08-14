@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mattei IA - Assistente Virtual</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: transparent;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 450px;
+      height: 520px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .chat-header span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: normal;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: #f8fafc;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .msg-user {
+      align-self: flex-end;
+      background-color: #4f46e5;
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+
+    .msg-ia {
+      align-self: flex-start;
+      background-color: #e2e8f0;
+      color: #1e293b;
+      border-bottom-left-radius: 2px;
+    }
+
+    .msg-ia-desconhecido {
+      align-self: flex-start;
+      background-color: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      border-bottom-left-radius: 2px;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 12px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      gap: 8px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    input:focus {
+      border-color: #6366f1;
+    }
+
+    button {
+      padding: 10px 16px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      Mattei IA 🤖
+      <span>Feira de Empreendedorismo</span>
+    </div>
+
+    <div class="chat-box" id="chat">
+      <div class="msg msg-ia">
+        <b>Mattei:</b> Olá! Eu sou o Mattei. Pode me fazer perguntas sobre startups, finanças, ciências ou contas matemáticas!
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="mensagem" placeholder="Digite sua pergunta..." onkeypress="checarEnter(event)">
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    async function enviar() {
+      const input = document.getElementById('mensagem');
+      const chat = document.getElementById('chat');
+      const texto = input.value.trim();
+      
+      if (!texto) return;
+
+      chat.innerHTML += `<div class="msg msg-user"><b>Você:</b> ${escaparHTML(texto)}</div>`;
+      input.value = '';
+      chat.scrollTop = chat.scrollHeight;
+
+      const idTemp = 'temp-' + Date.now();
+      chat.innerHTML += `<div class="msg msg-ia" id="${idTemp}"><b>Mattei:</b> Pensando...</div>`;
+      chat.scrollTop = chat.scrollHeight;
+
+      try {
+        const resposta = await fetch('/api/index', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: texto })
+        });
+
+        const dados = await resposta.json();
+        const msgElemento = document.getElementById(idTemp);
+
+        if (dados.response.includes("Ainda não aprendi")) {
+          msgElemento.className = "msg msg-ia-desconhecido";
+        }
+
+        msgElemento.innerHTML = `<b>Mattei:</b> ${dados.response}`;
+      } catch (erro) {
+        const msgElemento = document.getElementById(idTemp);
+        msgElemento.className = "msg msg-ia-desconhecido";
+        msgElemento.innerHTML = `<b>Mattei:</b> Tive um problema ao conectar com o servidor.`;
+      }
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function checarEnter(event) {
+      if (event.key === 'Enter') enviar();
+    }
+
+    function escaparHTML(str) {
+      return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+    }
+  </script>
+</body>
+</html>
