@@ -124,7 +124,7 @@
       "boa noite": "Boa noite! Espero que o seu dia tenha sido produtivo.",
       "tchau": "Até logo! Se precisar de mim, estarei por aqui.",
       "fala garoto": "E aí! Tudo beleza por aqui?",
-      "tudo bem?": "Comigo tudo ótimo! E com você, pronto para a feira?",
+      "tudo bem": "Comigo tudo ótimo! E com você, pronto para a feira?",
       "eae": "Salve! Como posso te ajudar hoje?",
       "opa": "Opa, tudo bem? O que vamos aprender agora?",
       "bem vindo": "Muito obrigado! É um prazer interagir com você.",
@@ -226,18 +226,18 @@
       "o que é margem de lucro": "É a porcentagem de ganho que sobra da venda de um produto depois de pagar todos os custos para produzi-lo e vendê-lo.",
 
       // Ciências e Saúde
-      "o que é medicina": "A medicina é a ciência focada em manter a saúde humana, prevenindo, diagnosticando e tratando doenças.",
-      "o que é uma celula": "A célula é a menor unidade viva que forma os nossos órgãos e todo o nosso corpo.",
-      "o que é o dna": "O DNA é como um manual de instruções biológico que diz como nosso corpo deve crescer e funcionar.",
-      "o que o coraçao faz": "O coração é um músculo forte que funciona como uma bomba, espalhando sangue com oxigênio para o corpo todo.",
-      "o que é o cerebro": "O cérebro é o computador central do corpo humano. Ele controla pensamentos, movimentos, memórias e emoções.",
-      "o que é um virus": "Um agente biológico minúsculo que precisa entrar nas células de um ser vivo para se multiplicar, podendo causar doenças.",
-      "o que é bacteria": "São seres vivos de uma única célula. Algumas causam doenças, mas muitas são boas e ajudam nosso corpo a funcionar.",
+      "medicina": "A medicina é a ciência focada em manter a saúde humana, prevenindo, diagnosticando e tratando doenças.",
+      "celula": "A célula é a menor unidade viva que forma os nossos órgãos e todo o nosso corpo.",
+      "dna": "O DNA é como um manual de instruções biológico que diz como nosso corpo deve crescer e funcionar.",
+      "coraçao": "O coração é um músculo forte que funciona como uma bomba, espalhando sangue com oxigênio para o corpo todo.",
+      "cerebro": "O cérebro é o computador central do corpo humano. Ele controla pensamentos, movimentos, memórias e emoções.",
+      "virus": "Um agente biológico minúsculo que precisa entrar nas células de um ser vivo para se multiplicar, podendo causar doenças.",
+      "bacteria": "São seres vivos de uma única célula. Algumas causam doenças, mas muitas são boas e ajudam nosso corpo a funcionar.",
       "sistema imunologico": "É o exército de defesa do nosso corpo, combatendo invasores como vírus e bactérias.",
-      "o que é um atomo": "O átomo é a partícula fundamental que constrói toda a matéria do universo.",
+      "atomo": "O átomo é a partícula fundamental que constrói toda a matéria do universo.",
       "gravidade": "A força invisível que puxa os objetos uns em direção aos outros. É ela que nos mantém presos no chão.",
       "oxigenio": "Um gás invisível no ar que é absolutamente essencial para a respiração e sobrevivência da maioria dos seres vivos.",
-      "o que é vacuo": "O vácuo é um espaço completamente vazio, onde não existe matéria, nem mesmo o ar.",
+      "vacuo": "O vácuo é um espaço completamente vazio, onde não existe matéria, nem mesmo o ar.",
       "vacina": "Uma substância que ensina o sistema imunológico a se defender de vírus ou bactérias perigosas.",
       "anticorpos": "Proteínas especiais criadas pelo corpo para caçar e neutralizar micróbios invasores.",
       "fotossintese": "Processo das plantas para produzir o próprio alimento usando a luz solar, água e gás carbônico.",
@@ -252,19 +252,89 @@
       // Programação, Robótica e Geral
       "roblox": "Eu amo este universo de bloquinhos!",
       "ajuda": "Eu posso te explicar como as coisas funcionam. Tente perguntar sobre finanças, matemática ou ciência!",
-      "oque é pi": "Pi é um dos números mágicos da matemática. Ele é um número infinito, mas normalmente utilizamos só 3,14.",
+      "pi": "Pi é um dos números mágicos da matemática. Ele é um número infinito, mas normalmente utilizamos só 3,14.",
       "tecnologia": "A tecnologia move o mundo e torna tarefas complexas muito mais simples.",
-      "o que é internet": "A internet é uma rede global de computadores interconectados que permite o compartilhamento de dados.",
+      "internet": "A internet é uma rede global de computadores interconectados que permite o compartilhamento de dados.",
       "ciência": "A ciência é o esforço humano para entender como o universo funciona através de testes e observações.",
-      "o que é luau": "Luau é uma linguagem de programação rápida e leve derivada do Lua, muito usada no Roblox.",
-      "o que é um script": "Um script é um conjunto de instruções em texto que diz ao computador exatamente o que fazer.",
-      "o que é uma variavel": "Uma variável é como uma caixa na memória onde guardamos uma informação para usar depois.",
-      "o que é uma funcao": "Uma função é um bloco de código reaproveitável que executa uma tarefa específica.",
-      "o que é um bug": "Um bug é um erro no código que faz o programa funcionar do jeito errado ou travar.",
-      "o que é uma string": "Em programação, uma string é simplesmente uma linha de texto entre aspas.",
-      "o que é um loop": "É uma estrutura que faz um pedaço de código se repetir várias vezes seguidas automaticamente.",
+      "luau": "Luau é uma linguagem de programação rápida e leve derivada do Lua, muito usada no Roblox.",
+      "script": "Um script é um conjunto de instruções em texto que diz ao computador exatamente o que fazer.",
+      "variavel": "Uma variável é como uma caixa na memória onde guardamos uma informação para usar depois.",
+      "funcao": "Uma função é um bloco de código reaproveitável que executa uma tarefa específica.",
+      "bug": "Um bug é um erro no código que faz o programa funcionar do jeito errado ou travar.",
+      "string": "Em programação, uma string é simplesmente uma linha de texto entre aspas.",
+      "loop": "É uma estrutura que faz um pedaço de código se repetir várias vezes seguidas automaticamente.",
       "algoritmo": "Uma sequência de passos lógicos e bem detalhados criada para resolver um problema."
     };
+
+    // Remove acentos e caracteres especiais para facilitar a comparação
+    function normalizarTexto(texto) {
+      return texto.toLowerCase()
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/[^a-z0-9\s]/g, "")
+                  .trim();
+    }
+
+    // Algoritmo de Levenshtein: mede a diferença de letras entre duas palavras
+    function calcularDiferenca(str1, str2) {
+      const len1 = str1.length;
+      const len2 = str2.length;
+      const matrix = [];
+
+      for (let i = 0; i <= len1; i++) matrix[i] = [i];
+      for (let j = 0; j <= len2; j++) matrix[0][j] = j;
+
+      for (let i = 1; i <= len1; i++) {
+        for (let j = 1; j <= len2; j++) {
+          const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,      // Deletar
+            matrix[i][j - 1] + 1,      // Inserir
+            matrix[i - 1][j - 1] + cost // Substituir
+          );
+        }
+      }
+      return matrix[len1][len2];
+    }
+
+    // Função de busca inteligente com tolerância a erros de digitação
+    function buscarRespostaInteligente(pergunta) {
+      const perguntaNorm = normalizarTexto(pergunta);
+      const palavrasDigitadas = perguntaNorm.split(/\s+/);
+
+      // 1. Busca Direta (Palavra idêntica ou contida)
+      for (let chave in MEMORIA_IA) {
+        const chaveNorm = normalizarTexto(chave);
+        if (perguntaNorm.includes(chaveNorm)) {
+          return MEMORIA_IA[chave];
+        }
+      }
+
+      // 2. Busca por Aproximação (Permite erros de digitação de 1 a 2 letras)
+      for (let chave in MEMORIA_IA) {
+        const chaveNorm = normalizarTexto(chave);
+        const palavrasChave = chaveNorm.split(/\s+/);
+
+        for (let pDigitada of palavrasDigitadas) {
+          if (pDigitada.length < 3) continue; // Ignora palavras muito curtas como "a", "de"
+
+          for (let pChave of palavrasChave) {
+            if (pChave.length < 3) continue;
+
+            const diferenca = calcularDiferenca(pDigitada, pChave);
+            
+            // Aceita erro de 1 letra para palavras curtas e até 2 letras para palavras maiores
+            const limiteErros = pChave.length > 5 ? 2 : 1;
+
+            if (diferenca <= limiteErros) {
+              return MEMORIA_IA[chave];
+            }
+          }
+        }
+      }
+
+      return null;
+    }
 
     function processarMatematica(pergunta) {
       const perguntaLimpa = pergunta.toLowerCase().trim();
@@ -312,13 +382,7 @@
       let ehDesconhecido = false;
 
       if (!resposta) {
-        const perguntaLimpa = texto.toLowerCase();
-        for (let chave in MEMORIA_IA) {
-          if (perguntaLimpa.includes(chave)) {
-            resposta = MEMORIA_IA[chave];
-            break;
-          }
-        }
+        resposta = buscarRespostaInteligente(texto);
       }
 
       if (!resposta) {
